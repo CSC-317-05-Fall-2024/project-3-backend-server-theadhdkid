@@ -1,30 +1,47 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-	<title>Travel Guide</title>
-    <link rel="stylesheet" href="/styles.css"/>
-    <link rel="stylesheet" href="/restaurant-details-styles.css"/>
-    <link rel="icon" type="image/png" href="images/icon.svg">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Guide <%= typeof restaurant !== 'undefined' ? ' - ' + restaurant.name : '' %></title>
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/restaurant-details-styles.css">
+    <script src="/scripts/header.js" defer></script>
 </head>
-
 <body>
-    <header></header>
-    <nav></nav>
-        <div class="restaurant-details">
-            <img class="restaurant-details-img" src="<%= photo %>">
-            <div>
-                <h1><%= name %></h1>
-                <h2><%= address %></h2>
-                <h2><%= phone %></h2>
-            </div>
+    <!-- Bangkok Hero section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Bangkok</h2>
         </div>
+    </section>
 
-
-    <footer></footer>
-    <script src="/scripts/header.js"></script>
+    <!-- Restaurant Details -->
+    <section class="restaurant-details">
+        <div class="details-container">
+            <% if (typeof restaurant !== 'undefined' && restaurant) { %>
+                <img 
+                    class="restaurant-details-img" 
+                    src="<%= restaurant.photo %>" 
+                    alt="<%= restaurant.name %>"
+                    onerror="this.src='/images/default-restaurant.jpg'"
+                >
+                <div class="details-content">
+                    <h1><%= restaurant.name %></h1>
+                    <div class="details-info">
+                        <h2><i class="fas fa-map-marker-alt"></i> <%= restaurant.address %></h2>
+                        <h2><i class="fas fa-phone"></i> <%= restaurant.phone %></h2>
+                    </div>
+                    <a href="/restaurants" class="back-button">Back to Restaurants</a>
+                </div>
+            <% } else { %>
+                <div class="details-content">
+                    <h1>Restaurant Not Found</h1>
+                    <p>Sorry, we couldn't find the restaurant you're looking for.</p>
+                    <a href="/restaurants" class="back-button">Back to Restaurants</a>
+                </div>
+            <% } %>
+        </div>
+    </section>
 </body>
-
 </html>
